@@ -5,7 +5,7 @@
  */
 package shareit;
 
-import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
+//import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
 import java.awt.Color;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import static java.lang.Math.ceil;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -67,18 +68,19 @@ public String file_path=null;
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jButton1 = new javax.swing.JButton();
         Choose_file = new javax.swing.JButton();
         Send_file = new javax.swing.JButton();
         Recieve_file = new javax.swing.JButton();
-        UrlPanel = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        UrlPanel = new javax.swing.JTextField();
+        ShareStatus = new javax.swing.JLabel();
         Ip_Field = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         Progress = new javax.swing.JProgressBar();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        Setting = new javax.swing.JMenu();
-        History = new javax.swing.JMenu();
+        jLabel4 = new javax.swing.JLabel();
+        Switch_To_phone = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         jMenu1.setText("jMenu1");
 
@@ -86,11 +88,15 @@ public String file_path=null;
 
         jMenuItem2.setText("jMenuItem2");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("LOotLo");
-        setResizable(false);
+        jButton1.setText("jButton1");
 
-        Choose_file.setBackground(new java.awt.Color(135, 206, 235));
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("ShareLite");
+        setBackground(new java.awt.Color(171, 130, 255));
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Choose_file.setBackground(new java.awt.Color(102, 169, 202));
         Choose_file.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         Choose_file.setForeground(new java.awt.Color(255, 255, 255));
         Choose_file.setText("Choose File");
@@ -99,8 +105,9 @@ public String file_path=null;
                 Choose_fileActionPerformed(evt);
             }
         });
+        getContentPane().add(Choose_file, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 307, 290, 41));
 
-        Send_file.setBackground(new java.awt.Color(135, 206, 235));
+        Send_file.setBackground(new java.awt.Color(228, 116, 25));
         Send_file.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         Send_file.setForeground(new java.awt.Color(255, 255, 255));
         Send_file.setText("Send");
@@ -109,8 +116,9 @@ public String file_path=null;
                 Send_fileActionPerformed(evt);
             }
         });
+        getContentPane().add(Send_file, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 354, 290, 41));
 
-        Recieve_file.setBackground(new java.awt.Color(135, 206, 235));
+        Recieve_file.setBackground(new java.awt.Color(45, 172, 96));
         Recieve_file.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         Recieve_file.setForeground(new java.awt.Color(255, 255, 255));
         Recieve_file.setText("Recieve");
@@ -119,111 +127,86 @@ public String file_path=null;
                 Recieve_fileActionPerformed(evt);
             }
         });
+        getContentPane().add(Recieve_file, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 401, 290, 41));
+
+        jLabel1.setBackground(new java.awt.Color(102, 102, 255));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, -1));
 
         UrlPanel.setEditable(false);
         UrlPanel.setBackground(new java.awt.Color(255, 255, 255));
+        UrlPanel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UrlPanelActionPerformed(evt);
+            }
+        });
+        getContentPane().add(UrlPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 267, 290, 29));
 
-        jLabel1.setBackground(new java.awt.Color(102, 102, 255));
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Anshal Dwivedi\\Documents\\NetBeansProjects\\ShareIt\\fi.jpg")); // NOI18N
+        ShareStatus.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        ShareStatus.setForeground(new java.awt.Color(0, 100, 0));
+        ShareStatus.setText("Status : None");
+        getContentPane().add(ShareStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 240, 193, -1));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel2.setText("File To Send:-");
-
+        Ip_Field.setBackground(new java.awt.Color(255, 255, 255));
         Ip_Field.setText(" ");
         Ip_Field.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Ip_FieldActionPerformed(evt);
             }
         });
+        getContentPane().add(Ip_Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 199, 290, 29));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel3.setForeground(new java.awt.Color(0, 100, 0));
         jLabel3.setText("Reciever's IP:-");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 172, -1, -1));
 
         Progress.setBackground(new java.awt.Color(255, 255, 255));
-        Progress.setForeground(new java.awt.Color(79, 148, 205));
+        Progress.setForeground(new java.awt.Color(0, 100, 0));
         Progress.setStringPainted(true);
+        getContentPane().add(Progress, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 132, 290, 22));
 
-        Setting.setText("Settings");
-        Setting.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SettingMouseClicked(evt);
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/shareit/logo2.png"))); // NOI18N
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 158, 120));
+
+        Switch_To_phone.setBackground(new java.awt.Color(144, 180, 235));
+        Switch_To_phone.setForeground(new java.awt.Color(255, 255, 255));
+        Switch_To_phone.setText("Android Mode");
+        Switch_To_phone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Switch_To_phoneActionPerformed(evt);
             }
         });
-        jMenuBar1.add(Setting);
+        getContentPane().add(Switch_To_phone, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 460, -1, -1));
 
-        History.setText("History");
-        jMenuBar1.add(History);
-
-        setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(107, 107, 107))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addGap(107, 107, 107))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(Progress, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Choose_file, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Send_file, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Recieve_file, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(UrlPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(Ip_Field))
-                        .addContainerGap())))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Progress, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Ip_Field, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(UrlPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addComponent(Choose_file, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Send_file, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Recieve_file, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12))
-        );
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/shareit/bg2.jpeg"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-4, 1, 320, 490));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void Choose_fileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Choose_fileActionPerformed
         // TODO add your handling code here:
+        Progress.setValue(0);
        Choose_thread ct=new Choose_thread();
        ct.start();
+       
     }//GEN-LAST:event_Choose_fileActionPerformed
 
     private void Send_fileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Send_fileActionPerformed
         // TODO add your handling code here:
-       Send_Thread st=new Send_Thread();
-       st.start();
+        String rec_ip=Ip_Field.getText();
+ //      
+        if(rec_ip.equals(""))
+        {
+            System.out.println("bhai ip to daal");
+            JOptionPane jo=new JOptionPane("ReciverIp is empty", 1);
+        }
+        else
+        {
+            Send_Thread st=new Send_Thread(file_path,rec_ip);
+             st.start();
+        }
+      
        
     }//GEN-LAST:event_Send_fileActionPerformed
 
@@ -236,142 +219,19 @@ public String file_path=null;
    
     }//GEN-LAST:event_Ip_FieldActionPerformed
 
-    private void SettingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SettingMouseClicked
+    private void UrlPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UrlPanelActionPerformed
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_SettingMouseClicked
-    public class Send_Thread extends Thread{
-        public void run(){
-             String rec_ip=Ip_Field.getText();
-        if(rec_ip.equals(""))
-        {
-            System.out.println("bhai ip to daal");
-            JOptionPane jo=new JOptionPane("ReciverIp is empty", 1);
-        }
-        else
-        {
-            Send_file.setEnabled(false);
-            Recieve_file.setEnabled(false);
-         File file_to_send=new File(file_path);
-         System.out.println("send Button Active");
-            try {
-                int l=file_path.length();
-                int i=l-1;
-                while(file_path.charAt(i)!='\\')
-                {
-                    i--;
-                }
-                String file_name;
-                file_name=file_path.substring(i+1);
-                FileInputStream fis=new FileInputStream(file_to_send);
-                BufferedInputStream bis=new BufferedInputStream(fis);
-                int file_size=(int)file_to_send.length();
-                byte[] barry=new byte[file_size];
-                bis.read(barry, 0,barry.length);
-              
-                System.out.println("send Button Active level-2");
-                Socket s=new Socket(rec_ip, 10003);
-                
-                DataOutputStream dos=new DataOutputStream(s.getOutputStream());
-               DataInputStream dis_send=new DataInputStream(s.getInputStream());
-                
-                System.out.println("send Button Active level-3");
-                
-             
-                dos.writeInt(file_size);
-                dos.writeUTF(file_name);
-                OutputStream os=s.getOutputStream();
-              
-                    os.write(barry,0,barry.length);
-                    os.flush();
-                    System.out.println("Done Sending");
-                    System.out.println("send Button Active level-4");
-               dos.close();
-               s.close();
-               os.close();
-               Send_file.setEnabled(true);
-            Recieve_file.setEnabled(true);
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(Share_Panel.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(Share_Panel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-        } 
-        }
-    }
- 
-    public class Rec_Thread extends Thread{
-        public void run(){
-            try {
-                Progress.setValue(0);
+    }//GEN-LAST:event_UrlPanelActionPerformed
+
+    private void Switch_To_phoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Switch_To_phoneActionPerformed
         // TODO add your handling code here:
-                Recieve_file.setEnabled(false);
-                Send_file.setEnabled(false);
-        ServerSocket ss=new ServerSocket(10003);
-        System.out.println("waiting...");
-        Socket rec_socket=ss.accept();
-        System.out.println("Connected");
-           
-                    
-          
-        DataInputStream dis=new DataInputStream(rec_socket.getInputStream());
-        //DataOutputStream dos=new DataOutputStream(rec_socket.getOutputStream());
-        int size=dis.readInt()+10;
-        byte[] rec_barry=new byte[size];
-        String file_location="C:\\SHAREit";
-        File fl=new File(file_location);
-        fl.mkdirs();
-        System.out.println("folder Created");
-        String file_name=dis.readUTF();
-        file_location=file_location+"\\"+file_name;
-        fl=new File(file_location);
-        fl.createNewFile();
-        System.out.println("Size: "+size+"and"+"Path"+file_name);
-        InputStream is=rec_socket.getInputStream();
-        
-        FileOutputStream fos=new FileOutputStream(fl);
-        BufferedOutputStream bos=new BufferedOutputStream(fos);
-        int bytesRead;
-        int current=0;
-                bytesRead = is.read(rec_barry,0,rec_barry.length);
-          current = bytesRead;
-                System.out.println("Byte Recieved"+current);
-                Progress.setValue(100*current/(size-10));
-              // dos.writeInt(100*current/(size-10));
-      do {
-         bytesRead =
-            is.read(rec_barry, current, (rec_barry.length-current));
-         if(bytesRead >= 0) current += bytesRead;
-         System.out.println("Byte Recieved"+current);
-          Progress.setValue(100*current/(size-10));
-         // dos.writeInt(100*current/(size-10));
-      } while(bytesRead > -1);
-      System.out.println("Byte Recieved"+current);
-               Progress.setValue(100*current/(size-10));
-          //   dos.writeInt(100*current/(size-10));
-      bos.write(rec_barry, 0 , current);
-      bos.flush();
-      System.out.println("File " + fl
-          + " downloaded (" + current + " bytes read)");
-        
-        dis.close();
-        is.close();
-        fos.flush();
-        fos.close();
-        bos.flush();
-        bos.close();
-        rec_socket.close();
-        ss.close();
-        
-        System.out.println("Transfer Complete");
-                Recieve_file.setEnabled(true);
-                Send_file.setEnabled(true);
-    } catch (IOException ex) {
-        Logger.getLogger(Share_Panel.class.getName()).log(Level.SEVERE, null, ex);
-    }
-        }
-    }
+        MV_MainPanel mvp=new MV_MainPanel();
+        mvp.getContentPane().setBackground( new Color(148, 188, 143) );
+        mvp.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_Switch_To_phoneActionPerformed
+    
+
     public class Choose_thread extends Thread{
         public void run(){
              JFileChooser jfc=new JFileChooser();
@@ -388,25 +248,26 @@ public String file_path=null;
         }
         }
     }
-   
+    
     /**
      * @param args the command line arguments
      */
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Choose_file;
-    private javax.swing.JMenu History;
     public javax.swing.JTextField Ip_Field;
-    private javax.swing.JProgressBar Progress;
-    private javax.swing.JButton Recieve_file;
-    private javax.swing.JButton Send_file;
-    private javax.swing.JMenu Setting;
+    public static javax.swing.JProgressBar Progress;
+    public static javax.swing.JButton Recieve_file;
+    public static javax.swing.JButton Send_file;
+    public static javax.swing.JLabel ShareStatus;
+    private javax.swing.JButton Switch_To_phone;
     private javax.swing.JTextField UrlPanel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     // End of variables declaration//GEN-END:variables

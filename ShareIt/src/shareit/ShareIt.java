@@ -23,8 +23,9 @@ public class ShareIt {
         try {
             // TODO code application logic here
             Share_Panel sp=new Share_Panel();
+            System.out.println(System.getProperty("user.home"));
             sp.setVisible(true);
-            sp.getContentPane().setBackground( new Color(174, 238, 238) );
+            sp.getContentPane().setBackground( new Color(148, 188, 143) );
         } catch (IOException ex) {
             Logger.getLogger(ShareIt.class.getName()).log(Level.SEVERE, null, ex);
         }
